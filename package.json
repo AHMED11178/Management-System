@@ -1,4 +1,6 @@
 {
+  "main": "public/electron.js",
+  "homepage": "./",
   "name": "order-screen",
   "version": "0.1.0",
   "private": true,
@@ -12,10 +14,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "craco build",
+    "start": "electron .",
+    "test": "craco test",
+    "eject": "craco eject"
   },
   "eslintConfig": {
     "extends": [
@@ -36,6 +38,7 @@
     ]
   },
   "devDependencies": {
-    "@craco/craco": "^7.1.0"
+    "@craco/craco": "^7.1.0",
+    "electron": "^33.0.2"
   }
 }
