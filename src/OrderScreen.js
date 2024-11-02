@@ -1,13 +1,11 @@
-// src/OrderScreen.js
 import React, { useState, useEffect } from 'react';
 import { ipcRenderer } from 'electron';
+import './styles.css'; // Import the new styles
 
 const OrderScreen = () => {
   const [orders, setOrders] = useState({ preparing: [], ready: [] });
 
-  // Listen for incoming order updates from kiosk and kitchen
   useEffect(() => {
-    // Listen for new orders from kiosk
     ipcRenderer.on('order-preparing', (event, orderId) => {
       setOrders(prevState => ({
         ...prevState,
@@ -15,7 +13,6 @@ const OrderScreen = () => {
       }));
     });
 
-    // Listen for orders marked as ready from kitchen
     ipcRenderer.on('order-ready', (event, orderId) => {
       setOrders(prevState => ({
         ...prevState,
@@ -24,7 +21,6 @@ const OrderScreen = () => {
       }));
     });
 
-    // Listen for completed orders to remove them from the screen
     ipcRenderer.on('order-completed', (event, orderId) => {
       setOrders(prevState => ({
         preparing: prevState.preparing.filter(id => id !== orderId),
@@ -32,7 +28,6 @@ const OrderScreen = () => {
       }));
     });
 
-    // Clean up listeners on unmount
     return () => {
       ipcRenderer.removeAllListeners('order-preparing');
       ipcRenderer.removeAllListeners('order-ready');
@@ -41,22 +36,28 @@ const OrderScreen = () => {
   }, []);
 
   return (
-    <div>
+    <div className="order-container">
       <h1>Order Status</h1>
-      <section>
+
+      <section className="section">
         <h2>Preparing</h2>
-        <ul>
-          {orders.preparing.map(orderId => (
-            <li key={orderId}>Order #{orderId}</li>
-          ))}
+        <ul className="order-list">
+          {orders.preparing.length > 0 ? (
+            orders.preparing.map(orderId => <li key={orderId}>Order #{orderId}</li>)
+          ) : (
+            <p className="empty-message">No orders currently being prepared</p>
+          )}
         </ul>
       </section>
-      <section>
+
+      <section className="section">
         <h2>Ready</h2>
-        <ul>
-          {orders.ready.map(orderId => (
-            <li key={orderId}>Order #{orderId}</li>
-          ))}
+        <ul className="order-list">
+          {orders.ready.length > 0 ? (
+            orders.ready.map(orderId => <li key={orderId}>Order #{orderId}</li>)
+          ) : (
+            <p className="empty-message">No orders ready for pickup</p>
+          )}
         </ul>
       </section>
     </div>
@@ -64,3 +65,5 @@ const OrderScreen = () => {
 };
 
 export default OrderScreen;
+
+

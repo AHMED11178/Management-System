@@ -4,7 +4,11 @@ module.exports = {
   webpack: {
     configure: {
       target: "electron-renderer",
-      externals: [nodeExternals({ allowlist: [/webpack/, "electron-devtools-installer"] })],
+      externals: [
+        nodeExternals({
+          allowlist: [/webpack/, "electron-devtools-installer"]
+        })
+      ],
     },
   },
 };

@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "@craco/craco": "^7.1.0",
-    "electron": "^33.0.2"
+    "electron": "^33.0.2",
+    "webpack-node-externals": "^3.0.0"
   }
 }
