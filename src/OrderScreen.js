@@ -3,6 +3,7 @@ import { ipcRenderer } from 'electron';
 import './styles.css'; // Import the new styles
 
 
+
 const OrderScreen = () => {
   const [orders, setOrders] = useState({ preparing: [], ready: [] });
 
